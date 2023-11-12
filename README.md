@@ -1,7 +1,12 @@
-
 <body>
     <header>
         <img src="https://github.com/its-vitor/Concord/assets/146399948/8ca4e588-af38-474b-b6af-eb62abab66c4" alt="Concord">
+        <div style="display: flex;" align="center">
+            <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
+            <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
+            <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white">
+            <img src="https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink">
+        </div>
         <h1>Concord</h1>
         <p>Concord é um pseudo rede social de mensagens em tempo real. Tratando-se de um serviço simples, é permitido que usuário se registrem, façam login, adicionem amigos e enviem mensagens para esses amigos, que recebem na mesma hora usando WebSockets.</p>
     </header>
