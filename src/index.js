@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 const express = require('express');
 const { sendMessage } = require('./controllers/message.js');
 const { userFromToken } = require('./middlewares/auth.js')
@@ -15,6 +16,8 @@ mongoose.connect(process.env.MONGODB)
 
 const app = express();
 app.use(userRoutes);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const expressServer = app.listen(3000, () => {
     console.log(`Express PORT: ${expressServer.address().port}`);
 });

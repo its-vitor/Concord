@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express-rate-limit": "^7.1.4",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",

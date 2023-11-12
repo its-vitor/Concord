@@ -39,18 +39,34 @@ async function getFriends(req, res) {
 
 async function getMessages(req, res) {
     const { start, size, userId } = req.body;
-    const token = req.headers.authorization;
-    const user = await User.findById(userFromToken(token)._id);
 
-    const chat = await Chats.findOne({ members: { $all: [userId, user._id] } });
-
-    if (!chat) {
-        return res.status(400).send('Chat não encontrado.');
+    if (!Number.isInteger(start) || !Number.isInteger(size)) {
+        return res.status(400).send('Ops!');
     }
 
-    const messages = chat.messages.slice(-start, -start + size).reverse();
+    const token = req.headers.authorization;
 
-    res.send(messages);
+    try {
+        const user = await User.findById(userFromToken(token)._id);
+
+        if (!user) {
+            return res.status(403).send('Usuário não autorizado.');
+        }
+
+        const chat = await Chats.findOne({ members: { $all: [userId, user._id] } });
+
+        if (!chat) {
+            return res.status(400).send('Chat não encontrado.');
+        }
+
+        const messages = chat.messages.slice(-start, -start + size).reverse();
+
+        res.send(messages);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Serviço em manutenção! Por favor, aguarde.');
+    }
 }
+
 
 module.exports = { register, login, getFriends, getMessages };
