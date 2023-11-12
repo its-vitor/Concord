@@ -1,5 +1,6 @@
 <body>
     <header>
+        <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=df2042&height=120&section=header"/>
         <img src="https://github.com/its-vitor/Concord/assets/146399948/8ca4e588-af38-474b-b6af-eb62abab66c4" alt="Concord">
         <div style="display: flex;" align="center">
             <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
