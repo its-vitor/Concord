@@ -38,7 +38,7 @@ async function login(req, res) {
 
 async function getFriends(req, res) {
   const token = req.headers.authorization;
-  const user = await User.findById(userFromToken(token)._id);
+  const user = await User.findById(userFromToken(token));
   return res.send(await User.find({ _id: { $in: user.friends } }, "name _id"));
 }
 

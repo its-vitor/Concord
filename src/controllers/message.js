@@ -7,7 +7,7 @@ const Errors = require("../errors/errors.js");
 
 const sendMessage = async (userId, content, token) => {
   const author = await User.findById(userFromToken(token));
-  userId = mongoose.Types.ObjectId(userId);
+  userId = new mongoose.Types.ObjectId(userId);
 
   if (!author.friends.includes(userId)) {
     throw new Errors.NotFriends(
@@ -30,16 +30,16 @@ const addFriend = async (req, res) => {
   const userId = new mongoose.Types.ObjectId(req.body.userId);
   const user = await User.findById(userFromToken(req.headers.authorization));
 
-    if (user.friends.includes(userId)) {
-      res.status(405).send({ message: "Este usuário já é seu amigo." });
-      return
-    } 
+  if (user.friends.includes(userId)) {
+    res.status(405).send({ message: "Este usuário já é seu amigo." });
+    return;
+  }
 
-    user.friends.push(userId);
+  user.friends.push(userId);
 
-    await user.save();
+  await user.save();
 
-    res.status(200).send({ message: "Amigo adicionado com sucesso." });
+  res.status(200).send({ message: "Amigo adicionado com sucesso." });
 };
 
 module.exports = { sendMessage, addFriend };
