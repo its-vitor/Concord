@@ -27,30 +27,19 @@ const sendMessage = async (userId, content, token) => {
 };
 
 const addFriend = async (req, res) => {
-  console.log(req.body.userId);
   const userId = new mongoose.Types.ObjectId(req.body.userId);
-  const token = req.headers.authorization;
-  const user = await User.findById(userFromToken(token));
+  const user = await User.findById(userFromToken(req.headers.authorization));
 
-  console.log(userId);
-  console.log(token);
-  console.log(user);
-  //   const userId = mongoose.Types.ObjectId(req.body.userId);
-  //   const token = req.headers.authorization;
-  //   const user = await User.findById(userFromToken(token)._id);
+    if (user.friends.includes(userId)) {
+      res.status(405).send({ message: "Este usuário já é seu amigo." });
+      return
+    } 
 
-  //   console.log(token);
-  //   console.log(user);
+    user.friends.push(userId);
 
-  //   if (user.friends.includes(userId)) {
-  //     res.status(405).send({ message: "Este usuário já é seu amigo." });
-  //   }
+    await user.save();
 
-  //   user.friends.push(userId);
-
-  //   await user.save();
-
-  //   res.status(200).send({ message: "Amigo adicionado com sucesso." });
+    res.status(200).send({ message: "Amigo adicionado com sucesso." });
 };
 
 module.exports = { sendMessage, addFriend };

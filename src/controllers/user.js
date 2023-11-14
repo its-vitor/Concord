@@ -18,7 +18,7 @@ async function register(req, res) {
   });
   await user.save();
 
-  res.status(201).send({ token: generateToken(user._id) });
+  return res.status(201).send({ token: generateToken(user._id) });
 }
 
 async function login(req, res) {
@@ -33,13 +33,13 @@ async function login(req, res) {
     return res.status(400).send("Email ou senha inválidos.");
   }
 
-  res.send({ token: generateToken(user._id) });
+  return res.send({ token: generateToken(user._id) });
 }
 
 async function getFriends(req, res) {
   const token = req.headers.authorization;
   const user = await User.findById(userFromToken(token)._id);
-  res.send(await User.find({ _id: { $in: user.friends } }, "name _id"));
+  return res.send(await User.find({ _id: { $in: user.friends } }, "name _id"));
 }
 
 async function getMessages(req, res) {
